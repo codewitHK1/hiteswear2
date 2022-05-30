@@ -6,7 +6,7 @@ export default function Document() {
       <Head>
         <style>
           @import url
-          {"https://fonts.googleapis.com/css2?family=Changa&display=swap"};
+          {`https://fonts.googleapis.com/css2?family=Changa&display=swap`};
         </style>
       </Head>
       <body>
