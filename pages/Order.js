@@ -1,6 +1,7 @@
 import React from "react";
+import Order from "../models/Order";
 
-const Order = () => {
+const MyOrder = () => {
   return (
     <section className="text-gray-600 body-font overflow-hidden">
       <div className="container px-5 py-24 mx-auto">
@@ -71,4 +72,4 @@ const Order = () => {
   );
 };
 
-export default Order;
+export default MyOrder;

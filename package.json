@@ -2,11 +2,13 @@
   "name": "hitswear",
   "version": "0.1.0",
   "private": true,
+  "homepage":"https://github.com/codewitHK1/hitsWear",
   "scripts": {
     "dev": "next dev",
-    "start":"node mongoose.js",
+    "start": "next start",
     "build": "next build",
-    "lint": "next lint"
+    "lint": "next lint",
+    "deploy":"gh-pages -d build"
   },
   "dependencies": {
     "crypto-js": "^4.1.1",

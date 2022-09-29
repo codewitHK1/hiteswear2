@@ -6,9 +6,7 @@
 *{
     font-family: 'Changa', sans-serif;
 }
-body{
-    overflow-x: hidden;
-}
+
 @media(max-width:441px){
     body{
 

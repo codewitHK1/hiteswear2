@@ -11,7 +11,7 @@ const handler = async (req, res) => {
       password: CryptoJS.AES.encrypt(req.body.password, "123").toString(),
     });
     await u.save();
-    return res.status(200).json({ succes: "succes" });
+    return res.status(200).json({ succes: "success" });
   } else {
     return res.status(400).json({ error: "this method in not allowed" });
   }

@@ -1,7 +1,7 @@
 import React from "react";
 import Image from "next/dist/client/image";
 import Link from "next/dist/client/link";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import {
   AiOutlineShoppingCart,
   AiFillCloseCircle,
@@ -10,6 +10,7 @@ import {
 } from "react-icons/ai";
 import { BsFillBagCheckFill } from "react-icons/bs";
 import { MdAccountCircle } from "react-icons/md";
+import { useRouter } from "next/router";
 
 const Navbar = ({
   user,
@@ -21,15 +22,27 @@ const Navbar = ({
   subTotal,
 }) => {
   const [dropDown, setDropDown] = useState(false);
+  const [sidebar, setSidebar] = useState(false);
+
+  const router = useRouter();
+
+  useEffect(() => {
+    Object.keys(cart).length !== 0 && setSidebar(true);
+    let exemted = ["/Checkout", "/Order", "/orders"];
+    if (exemted.includes(router.pathname)) {
+      setSidebar(false);
+    }
+  }, []);
 
   const toggleCart = () => {
-    if (ref.current.classList.contains("translate-x-full")) {
-      ref.current.classList.remove("translate-x-full");
-      ref.current.classList.add("translate-x-0");
-    } else if (!ref.current.classList.contains("translate-x-full")) {
-      ref.current.classList.remove("translate-x-0");
-      ref.current.classList.add("translate-x-full");
-    }
+    setSidebar(!sidebar);
+    // if (ref.current.classList.contains("translate-x-full")) {
+    //   ref.current.classList.remove("translate-x-full");
+    //   ref.current.classList.add("translate-x-0");
+    // } else if (!ref.current.classList.contains("translate-x-full")) {
+    //   ref.current.classList.remove("translate-x-0");
+    //   ref.current.classList.add("translate-x-full");
+    // }
   };
   const ref = useRef();
   return (
@@ -118,11 +131,9 @@ const Navbar = ({
 
       <div
         ref={ref}
-        className={`w-72 h-[100vh] sideCart overflow-y-scroll z-20 absolute top-0
-        right-0 bg-blue-200 py-10  px-8 transform transition-transform 
-       ${
-         Object.keys(cart).length !== 0 ? "translate-x-0" : "translate-x-full"
-       }`}
+        className={`w-72 h-[100vh] sideCart overflow-y-scroll z-20 absolute 
+        top-0 bg-blue-200 py-10  px-8  transition-all
+       ${sidebar ? " right-0" : "-right-96"}`}
       >
         <h2 className="font-bold text-xl">Shopping Cart</h2>
         <span

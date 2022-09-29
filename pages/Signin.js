@@ -12,7 +12,7 @@ const Signin = () => {
   const router = useRouter();
   useEffect(() => {
     if (localStorage.getItem("token")) {
-      router.push("/");
+      router.push("/Login");
     }
   }, []);
 
@@ -52,6 +52,9 @@ const Signin = () => {
       draggable: true,
       progress: undefined,
     });
+    setTimeout(() => {
+      router.push("/Login");
+    }, 1000);
   };
 
   return (

@@ -1,19 +1,16 @@
-
 import mongoose from "mongoose";
 import Order from "../models/Order";
 import { useEffect, React } from "react";
-import { useRouter } from "next/router";
 
 const Orders = () => {
-   const router = useRouter();
-   useEffect(() => {
-     if (!localStorage.getItem("token")) {
-       router.push("/");
-     }
-   }, []);
+  useEffect(() => {
+    if (!localStorage.getItem("token")) {
+      router.push("/");
+    }
+  }, []);
   return (
     <>
-      <div className="container  mx-auto">
+      <div className="container  mx-auto min-h-screen">
         <div className="flex flex-col">
           <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
             <div className="py-2 inline-block min-w-full sm:px-6 lg:px-8">
@@ -28,71 +25,44 @@ const Orders = () => {
                         scope="col"
                         className="text-sm font-medium text-gray-900 px-6 py-4 text-left"
                       >
-                        #
+                        id
                       </th>
                       <th
                         scope="col"
                         className="text-sm font-medium text-gray-900 px-6 py-4 text-left"
                       >
-                        First
+                        Email
                       </th>
                       <th
                         scope="col"
                         className="text-sm font-medium text-gray-900 px-6 py-4 text-left"
                       >
-                        Last
+                        Amount
                       </th>
                       <th
                         scope="col"
                         className="text-sm font-medium text-gray-900 px-6 py-4 text-left"
                       >
-                        Handle
+                        Detailes
                       </th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr className="border-b">
                       <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                        1
+                        8441211548
                       </td>
                       <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                        Mark
+                        Wear Hits white AWS(L/White)
                       </td>
                       <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                        Otto
+                        ₹1197.00
                       </td>
                       <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                        @mdo
+                        Your Order has been Succesfully Placed
                       </td>
                     </tr>
-                    <tr className="bg-white border-b">
-                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                        2
-                      </td>
-                      <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                        Jacob
-                      </td>
-                      <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                        Thornton
-                      </td>
-                      <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                        @fat
-                      </td>
-                    </tr>
-                    <tr className="bg-white border-b">
-                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                        3
-                      </td>
-                      <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                        Larry
-                      </td>
-                      <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                        Wild
-                      </td>
-                      <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                        @twitter
-                      </td>
-                    </tr>
+                    ;
                   </tbody>
                 </table>
               </div>
@@ -106,12 +76,12 @@ const Orders = () => {
 
 export async function getServerSideProps(context) {
   if (mongoose.connections[0].readyState) {
+    await mongoose.connect(process.env.MONGO_URI);
   }
-  await mongoose.connect(process.env.MONGO_URI);
-  let orders = await Order.findOne({});
+  let Orders = await Order.findById(context.query);
 
   return {
-    props: { orders: orders },
+    props: { orders: Orders },
   };
 }
 export default Orders;
